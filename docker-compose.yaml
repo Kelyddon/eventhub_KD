@@ -3,6 +3,7 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+      target: dev
     ports:
       - "3000:3000"
     volumes:
@@ -10,13 +11,18 @@ services:
       - api_node_modules:/app/node_modules
     environment:
       - DATABASE_URL=postgresql://eventhub:eventhub@db:5432/eventhub
+      - MONGO_URL=mongodb://eventhub:eventhub@mongo:27017/eventhub?authSource=admin
+      - REDIS_URL=redis://redis:6379
     depends_on:
       - db
+      - mongo
+      - redis
 
   web:
     build:
       context: ./web
       dockerfile: Dockerfile
+      target: dev
     ports:
       - "5173:5173"
     volumes:
@@ -36,7 +42,33 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=eventhub
+      - MONGO_INITDB_ROOT_PASSWORD=eventhub
+    volumes:
+      - mongodata:/data/db
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+      - web
+
 volumes:
   api_node_modules:
   web_node_modules:
   pgdata:
+  mongodata:
