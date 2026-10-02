@@ -10,8 +10,8 @@ services:
       - ./api:/app
       - api_node_modules:/app/node_modules
     environment:
-      - DATABASE_URL=postgresql://eventhub:eventhub@db:5432/eventhub
-      - MONGO_URL=mongodb://eventhub:eventhub@mongo:27017/eventhub?authSource=admin
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - MONGO_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/${POSTGRES_DB}?authSource=admin
       - REDIS_URL=redis://redis:6379
     depends_on:
       - db
@@ -36,9 +36,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=eventhub
-      - POSTGRES_PASSWORD=eventhub
-      - POSTGRES_DB=eventhub
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -47,8 +47,8 @@ services:
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=eventhub
-      - MONGO_INITDB_ROOT_PASSWORD=eventhub
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongodata:/data/db
 
