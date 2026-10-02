@@ -2,4 +2,6 @@ node_modules/
 dist/
 *.log
 .env
-.husky/
+.husky/_
+.DS_Store
+Thumbs.db
