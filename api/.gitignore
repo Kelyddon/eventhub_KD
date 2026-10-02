@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.log
+.env
+.husky/_
+.DS_Store
+Thumbs.db
