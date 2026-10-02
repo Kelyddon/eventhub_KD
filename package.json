@@ -1,0 +1,32 @@
+{
+  "name": "eval",
+  "version": "1.0.0",
+  "description": "les conventions s'écrivent de la manière suivante:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kelyddon/eventhub_KD.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kelyddon/eventhub_KD/issues"
+  },
+  "homepage": "https://github.com/Kelyddon/eventhub_KD#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.9"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,json,md,yml}": [
+      "prettier --write"
+    ]
+  }
+}
