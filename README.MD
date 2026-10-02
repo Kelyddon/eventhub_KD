@@ -5,3 +5,5 @@ les conventions s'écrivent de la manière suivante:
 [corps optionnel]
 
 [footer(s) optionnel(s)]
+
+test du hook lint-staged
